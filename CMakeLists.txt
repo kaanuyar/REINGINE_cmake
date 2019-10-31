@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.10)
+project(MyProject C CXX)
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl")
+
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/include")
+
+link_libraries(/usr/lib/x86_64-linux-gnu/libglfw.so)
+
+find_package(PythonLibs)
+include_directories("${PYTHON_INCLUDE_DIRS}")
+link_libraries("${PYTHON_LIBRARIES}")
+
+
+
+file(GLOB all_files "Kaimon/src/*.cpp" "Kaimon/src/*.h" "Kaimon/src/vendor/*.c")
+
+add_executable(reingine ${all_files})
+
