@@ -1,4 +1,5 @@
 #include "MathCalc.h"
+#include <random>
 
 namespace MathCalc
 {
@@ -11,7 +12,7 @@ namespace MathCalc
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().z), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(entity.getScale(), entity.getScale(), entity.getScale()));
+		model = glm::scale(model, glm::vec3(entity.getScaleVector().x, entity.getScaleVector().y, entity.getScaleVector().z));
 		
 		const float *pSource = (const float*)glm::value_ptr(model);
 		for (int i = 0; i < 16; ++i)
@@ -93,12 +94,20 @@ namespace MathCalc
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().z), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(entity.getRotationVector().x), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(entity.getScale(), entity.getScale(), entity.getScale()));
+		model = glm::scale(model, glm::vec3(entity.getScaleVector().x, entity.getScaleVector().y, entity.getScaleVector().z));
 
 		glm::vec4 vec(pos.x, pos.y, pos.z, 1.0f);
 		vec = model * vec;
 
 		return Vector3f(vec.x, vec.y, vec.z);
+	}
+
+	float generateRandomFloat(float lowerBound, float upperBound)
+	{
+		std::random_device rd;
+		std::mt19937 rng(rd());
+		std::uniform_real_distribution<float> distance(lowerBound, upperBound);
+		return distance(rng);
 	}
 
 }

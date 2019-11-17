@@ -6,7 +6,7 @@ PythonExtension::PythonExtension()
 	Py_Initialize();
 
 	PyRun_SimpleString("import sys");
-	PyRun_SimpleString("sys.path.append('../Kaimon/py_src')");
+	PyRun_SimpleString("sys.path.append('py_src')");
 
 	PyObject* pName = PyUnicode_DecodeFSDefault("training");
 
@@ -64,7 +64,7 @@ Vector3f PythonExtension::callPythonAI(Player& player, std::vector<Obstacle*>& w
 			float z = float(PyFloat_AsDouble(PyList_GetItem(pValue, 2)));
 
 			vec = Vector3f(x, y, z);
-			printf("Result of call: %lf %lf %lf\n", vec.x, vec.y, vec.z);
+			//printf("Result of call: %lf %lf %lf\n", vec.x, vec.y, vec.z);
 			Py_DECREF(pValue);
 		}
 		else
