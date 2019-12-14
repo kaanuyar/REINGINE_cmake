@@ -60,6 +60,16 @@ bool Window::isWindowShouldClose()
 		return false;
 }
 
+bool Window::isWindowIconified()
+{
+	int iconified = glfwGetWindowAttrib(m_window, GLFW_ICONIFIED);
+
+	if (iconified)
+		return true;
+	else
+		return false;
+}
+
 void Window::windowShouldClose()
 {
 	glfwSetWindowShouldClose(m_window, true);
@@ -103,7 +113,6 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 	InputHandler* inputHandler = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
 	inputHandler->mouse_button_callback(window, button, action, mods);
 }
-
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {

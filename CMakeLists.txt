@@ -15,6 +15,7 @@ find_package(PythonLibs)
 include_directories("${PYTHON_INCLUDE_DIRS}")
 link_libraries("${PYTHON_LIBRARIES}")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Kaimon)
 
 
 file(GLOB all_files "Kaimon/src/*.cpp" "Kaimon/src/*.h" "Kaimon/src/vendor/*.c")

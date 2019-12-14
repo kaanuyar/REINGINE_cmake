@@ -10,6 +10,7 @@ public:
 	~Window();
 	GLFWwindow* getWindow();
 	bool isWindowShouldClose();
+	bool isWindowIconified();
 	void windowShouldClose();
 	void update();
 	unsigned int getWindowHeight();

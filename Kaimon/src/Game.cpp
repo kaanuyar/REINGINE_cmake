@@ -3,16 +3,16 @@
 Game::Game(Window& window)
 	:
 	m_frustum((float)window.getWindowWidth(), (float)window.getWindowHeight(), 60.0f, 0.1f, 100.0f),
-	m_entityShaderProgram("../Kaimon/src/shaders/VertexShader.vert", "../Kaimon/src/shaders/FragmentShader.frag"),
+	m_entityShaderProgram("src/shaders/VertexShader.vert", "src/shaders/FragmentShader.frag"),
 	m_camera(Vector3f(0.0f, 21.0f, 7.0f), Vector3f(0.0f, -3.0f, -1.0f), Vector3f(0.0f, 1.0f, 0.0f)),
 	m_light(Vector3f(0.0f, 10.0f, 0.0f), Vector3f(0.2f, 0.2f, 0.2f), Vector3f(1.0f, 1.0f, 1.0f), Vector3f(1.0f, 1.0f, 1.0f)),
-	m_rawEntity(OBJLoader::loadFile("../Kaimon/res/models/wallCube2.obj")),
-	m_rawEntity2(OBJLoader::loadFile("../Kaimon/res/models/tree.obj")),
+	m_rawEntity(OBJLoader::loadFile("res/models/wallCube2.obj")),
+	m_rawEntity2(OBJLoader::loadFile("res/models/tree.obj")),
 	m_rawTerrain(Terrain::createTerrain(10, 10)),
-	m_texture1("../Kaimon/res/textures/checker128.png", 0),
-	m_texture2("../Kaimon/res/textures/gray.png", 1),
-	m_texture3("../Kaimon/res/textures/reddish.png", 2),
-	m_texture4("../Kaimon/res/textures/green.png", 3),
+	m_texture1("res/textures/checker128.png", 0),
+	m_texture2("res/textures/gray.png", 1),
+	m_texture3("res/textures/reddish.png", 2),
+	m_texture4("res/textures/green.png", 3),
 	m_terrain(m_rawTerrain, m_texture1, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f)),
 	m_player(this, m_rawEntity, m_texture3, Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(1.0f, 1.0f, 1.0f)),
 	m_target(m_rawEntity, m_texture4, Vector3f(MathCalc::generateRandomFloat(-9.75f, 9.75f), 0.0f, MathCalc::generateRandomFloat(-9.75f, 9.75f)), Vector3f(0.0f, 0.0f, 0.0f), Vector3f(0.25f, 3.0f, 0.25f)),
@@ -35,9 +35,10 @@ void Game::update(float deltaTime)
 	if (m_timer.isDeltaTimeFromLastRestart(60.0f))
 		this->onRestart(m_player, m_target);
 
-	Vector3f vec = m_pythonExtension.callPythonAI(m_player, m_target, false);
-	//m_player.getEventHandler().addEventToList(Event(Event::MOVE_TO, false, vec.x, vec.y, vec.z));
+	float angleInDegrees = m_pythonExtension.callPythonAI(m_player, m_target, false);
+	m_player.getEventHandler().addEventToList(Event(Event::MOVE_TO_ANGLE, false, angleInDegrees));
 	//uncomment previous line for AI to work
+
 
 	for (IUpdatable* updatable : m_updatableList)
 		updatable->update(deltaTime);
@@ -59,4 +60,9 @@ void Game::onRestart(Player& player, Target& target)
 	player.restartPosition();
 	target.restartPosition();
 	m_timer.setLastRestartTimeToCurrentTime();
+}
+
+InputHandler& Game::getInputHandler()
+{
+	return m_inputHandler;
 }
