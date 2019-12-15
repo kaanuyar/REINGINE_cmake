@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 project(MyProject C CXX)
 
 if(NOT CMAKE_BUILD_TYPE)
