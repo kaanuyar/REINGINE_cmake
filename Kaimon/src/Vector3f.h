@@ -9,4 +9,12 @@ public:
 	void setVector(const Vector3f& vec) { x = vec.x;	y = vec.y;	  z = vec.z; }
 	void increasePosition(float dx, float dy, float dz) { x += dx; y += dy; z += dz; }
 	float x, y, z;
+
+	Vector3f operator-(const Vector3f& vec)
+	{
+		return Vector3f(this->x - vec.x, this->y - vec.y, this->z - vec.z);
+	}
+
+
+	// add substraction and addition method ex: vector3f + vector3f
 };
