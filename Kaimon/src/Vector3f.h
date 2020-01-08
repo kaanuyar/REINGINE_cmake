@@ -15,6 +15,5 @@ public:
 		return Vector3f(this->x - vec.x, this->y - vec.y, this->z - vec.z);
 	}
 
-
 	// add substraction and addition method ex: vector3f + vector3f
 };
