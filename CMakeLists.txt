@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 project(MyProject C CXX)
 
@@ -6,6 +6,8 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_LINK_EXECUTABLE "${CMAKE_CXX_LINK_EXECUTABLE} -ldl")
 
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/include")
@@ -22,4 +24,3 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Kaimon)
 file(GLOB all_files "Kaimon/src/*.cpp" "Kaimon/src/*.h" "Kaimon/src/vendor/*.c")
 
 add_executable(reingine ${all_files})
-
